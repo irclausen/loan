@@ -2,16 +2,11 @@ package keeper
 
 import (
 	"context"
-	"fmt"
 	"loan/x/loan/types"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
-
-func printHelper(x string) {
-	fmt.Println(x)
-}
 
 func (k msgServer) ApproveLoan(goCtx context.Context, msg *types.MsgApproveLoan) (*types.MsgApproveLoanResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
@@ -37,6 +32,7 @@ func (k msgServer) ApproveLoan(goCtx context.Context, msg *types.MsgApproveLoan)
 
 	loan.Lender = msg.Creator
 	loan.State = "approved"
-	printHelper(loan.State)
+
+	k.SetLoan(ctx, loan)
 	return &types.MsgApproveLoanResponse{}, nil
 }
