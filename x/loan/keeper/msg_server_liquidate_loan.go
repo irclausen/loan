@@ -16,7 +16,7 @@ func (k msgServer) LiquidateLoan(goCtx context.Context, msg *types.MsgLiquidateL
 
 	loan, found := k.GetLoan(ctx, msg.Id)
 	if !found {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprint("key %d doesn't exist", msg.Id))
+		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %d doesn't exist", msg.Id))
 	}
 
 	if loan.Lender != msg.Creator {
